@@ -3,6 +3,7 @@
 #' @param chr.seg segmentation data
 #' @return gc normalized copy-number
 shrink.seg.ai<-function(chr.seg){
+  new.chr <- chr.seg
   if(nrow(chr.seg) > 1){
     new.chr <- chr.seg
     seg.class <- c(1)
