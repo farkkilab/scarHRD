@@ -135,6 +135,7 @@ Usage example
 
                          
 ``` r
+library("scarHRD")
 scar_score("F:/Documents/scarHRD/examples/test2.txt",reference = "grch38", seqz=FALSE)
 ```
 
