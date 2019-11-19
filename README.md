@@ -56,7 +56,7 @@ install_github('aroneklund/copynumber')
 Installation
 ------------
 
-The FarkkiLab `scarHRD` can be installed via devtools from github:
+The FarkkiLab `scarHRD` can be installed via `devtools` from github:
 
 ``` r
 library(devtools)
@@ -133,24 +133,7 @@ scarHRDinput <- data.frame(SampleID = ASCAT[,1],
 Usage example
 -------------
 
-``` r
-library("scarHRD")
-scar_score("F:/Documents/scarHRD/examples/test1.small.seqz.gz",reference = "grch38", seqz=TRUE)
-```
-
-    ## Preprocessing started...
-
-    ## Processing chr1: 18 variant calls; 6290 heterozygous positions; 549112 homozygous positions.
-    ## Processing chr2: 22 variant calls; 4934 heterozygous positions; 394216 homozygous positions.
-
-    ##                                                                     
-      |=================================================================| 100%
-    ## Preprocessing finished 
-    ## Determining HRD-LOH, LST, TAI
-
-    ##      HRD Telomeric AI LST HRD-sum
-    ## [1,]   1            2   0       3
-
+                         
 ``` r
 scar_score("F:/Documents/scarHRD/examples/test2.txt",reference = "grch38", seqz=FALSE)
 ```
