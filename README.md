@@ -31,12 +31,6 @@ The first genomic scar based homologous recombination deficiency measures were p
 
 <br>
 
-Contact
--------
-
-Zsofia Sztupinszki  
-Technical University of Denmark  
-contact: <zsosupi@bioinformatics.dtu.dk>
 
 Getting started
 ===============
@@ -48,10 +42,9 @@ Minimum requirements
 -   Operating system: Linux, OS X, Windows
 -   R version: 3.4.0
    
--   Devtools Package:
+-   R package `devtools`:
 ``` r
-library(devtools)
-install_bitbucket('sequenza_tools/sequenza')
+install.packages("devtools")
 ```
 
 - A modification of the `copynumber` R package:
@@ -63,18 +56,18 @@ install_github('aroneklund/copynumber')
 Installation
 ------------
 
-`scarHRD` can be installed via devtools from github:
+The FarkkiLab `scarHRD` can be installed via devtools from github:
 
 ``` r
 library(devtools)
-install_github('sztup/scarHRD')
+install_github('farkkilab/scarHRD')
 ```
 
 
 Citation
 --------
 
-Please cite the following paper: manuscript submitted.
+Please cite allways the original scarHRD software.
 
 <br> <br>
 
@@ -116,6 +109,26 @@ head(a)
     ## 4    3.7
     ## 5    3.7
     ## 6    3.7
+
+**Note**: To generated the above input file format from the one proporcionated by Jaana Oikkonen (segmentation.csv) I run the next lines:
+
+```r
+#Reading input and reformating
+ASCAT <- read.table(file="segmentation.csv", sep="\t", quote="\"", header=T)
+
+
+#Preparing input for the scarHRD
+scarHRDinput <- data.frame(SampleID = ASCAT[,1],
+                           Chromosome = paste("chr",ASCAT[,2],sep=""),
+                           Start_position = ASCAT[,3],
+                           End_position = ASCAT[,4],
+                           total_cn = (ASCAT[,9] + ASCAT[,10]),
+                           A_cn  = ASCAT[,9],
+                           B_cn = ASCAT[,10],
+                           ploidy = ASCAT[,11])
+```
+
+**Note**: Then is necessary to save the re-formated input in a plain text file.
 
 Usage example
 -------------
