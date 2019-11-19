@@ -54,6 +54,6 @@ scar_score<-function(seg,reference = "grch38", seqz=FALSE, ploidy=NULL, sizelimi
 	    HRDresulst <- cbind(res_hrd,res_ai[,1],res_lst,sum_HRD0)
 	    colnames(HRDresulst) <- cbind("HRD",colnames(res_ai)[1],"LST", "HRD-sum")
 	    assign("HRDresulst",as.data.frame(HRDresulst),envir = .GlobalEnv)
-            write.table(HRDresulst,paste0(outputdir,"/","HRDresults.txt"),sep="\t", colnames=c("Samples", colnames(HRDresulst)))
+            write.table(HRDresulst,paste0(outputdir,"/","HRDresults.txt"),sep="\t", col.names=c("Samples", colnames(HRDresulst)))
 	    return(HRDresulst)
 }
