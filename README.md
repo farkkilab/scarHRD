@@ -21,6 +21,10 @@ scarHRD R package Manual
 Introduction
 ============
 
+This is an adaptation to the FarkkilaB of the original package scarHRD (https://github.com/sztup/scarHRD). Some redundant lines were removed and some bugs fixed. Have fun with it!
+
+
+
 `scarHRD` is an R package which determines the levels of homologous recombination deficiency (telomeric allelic imbalance, loss off heterozygosity, number of large-scale transitions) based on NGS (WES, WGS) data.
 
 The first genomic scar based homologous recombination deficiency measures were produced using SNP arrays. Since this technology has been largely replaced by next generation sequencing it has become important to develop algorithms that derive the same type of genomic scar-scores from next generation sequencing (WXS, WGS) data. In order to perform this analysis, here **we introduce the `scarHRD` R package** and show that using this method the **SNP-array based and next generation sequencing based derivation of HRD scores show good correlation.**
@@ -32,7 +36,7 @@ Contact
 
 Zsofia Sztupinszki  
 Technical University of Denmark  
-contact: <zsosupi@bioinformatics.dtu.dk>  
+contact: <zsosupi@bioinformatics.dtu.dk>
 
 Getting started
 ===============
@@ -43,12 +47,18 @@ Minimum requirements
 -   Software: R
 -   Operating system: Linux, OS X, Windows
 -   R version: 3.4.0
--   **latest version of Sequenza R package** must be installed from **Bitbucket** https://bitbucket.org/sequenza_tools/sequenza   
-
+   
+-   Devtools Package:
 ``` r
 library(devtools)
 install_bitbucket('sequenza_tools/sequenza')
-```  
+```
+
+- A modification of the `copynumber` R package:
+``` r
+library(devtools)
+install_github('aroneklund/copynumber')
+```
 
 Installation
 ------------
@@ -60,15 +70,6 @@ library(devtools)
 install_github('sztup/scarHRD')
 ```
 
-Running on GRCh38
-------------
-
-A modification of the `copynumber` R package needs to be used which can be installed via devtools from github:
-
-``` r
-library(devtools)
-install_github('aroneklund/copynumber')
-```
 
 Citation
 --------
@@ -90,32 +91,11 @@ Further details can be found in the Vignette of Sequenza: <https://cran.r-projec
 2. Determine the scar scores with scarHRD R package.  
 This step only takes a few minutes.  
 
-Input file examples
+**Note**: In the FarkkilaLab we only have used ASCAT files. Those files were proportionated by Jaana Oikkonen.
+
+Input ASCAT file examples
 -------------------
-
-The scarHRD input may be a detailed segmentation file from Sequenza, in case there is a reliable estimation of ploidy of the tumor sample is known, it should be sumbitted in the `ploidy` argument of the `scarHRD` function, otherwise ploidy between 1 and 5.5 will be tested:
-
-``` r
-a<-read.table("/examples/test1.small.seqz.gz", header=T)
-head(a)
-```
-
-    ##   chromosome position base.ref depth.normal depth.tumor depth.ratio    Af
-    ## 1       chr1    12975        N            7          20       2.841 1.000
-    ## 2       chr1    13020        A            8          28       3.500 0.964
-    ## 3       chr1    13026        N           15          43       2.964 1.000
-    ## 4       chr1    13038        T           11          35       3.182 0.971
-    ## 5       chr1    13041        A           11          37       3.364 0.946
-    ## 6       chr1    13077        N           26          65       2.465 1.000
-    ##   Bf zygosity.normal GC.percent good.reads AB.normal AB.tumor tumor.strand
-    ## 1  0             hom         60         51         N        .            0
-    ## 2  0             hom         60         28         A   G0.036         G1.0
-    ## 3  0             hom         59         51         N        .            0
-    ## 4  0             hom         59         35         T   C0.029         C1.0
-    ## 5  0             hom         59         37         A   G0.054         G0.5
-    ## 6  0             hom         62         51         N        .            0
-
-or a simplified file, including the total, and allele-specific copy-number:
+     
 
 ``` r
 a<-read.table("/examples/test2.txt", header=T)
