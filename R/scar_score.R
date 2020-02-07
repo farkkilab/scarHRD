@@ -9,9 +9,8 @@
 #' @export
 #' @import sequenza
 #' @import data.table
-scar_score<-function(seg,reference = "grch38", seqz=FALSE, ploidy=NULL, sizelimitLOH=15e6, outputdir=NULL){
-
-	  if (is.null(outputdir)){
+scar_score<-function(seg,reference = "grch38", seqz=FALSE, ploidy=NULL, sizelimitLOH=15e6, outputdir=NULL, outputfile=NULL){
+  if (is.null(outputdir)){
 		    outputdir=getwd()
   }
   if (reference == "grch38"){
@@ -54,6 +53,6 @@ scar_score<-function(seg,reference = "grch38", seqz=FALSE, ploidy=NULL, sizelimi
 	    HRDresulst <- cbind(res_hrd,res_ai[,1],res_lst,sum_HRD0)
 	    colnames(HRDresulst) <- cbind("HRD",colnames(res_ai)[1],"LST", "HRD-sum")
 	    assign("HRDresulst",as.data.frame(HRDresulst),envir = .GlobalEnv)
-            write.table(HRDresulst,paste0(outputdir,"/","HRDresults.txt"),sep="\t")
+            write.table(HRDresulst,paste0(outputdir,"/",outputfile),sep="\t")
 	    return(HRDresulst)
 }
