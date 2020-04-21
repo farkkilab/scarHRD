@@ -9,11 +9,13 @@ calc.lst<-function(seg, chrominfo=chrominfo,nA=7,chr.arm='no'){
   nB <- nA+1
   samples <- unique(seg[,1])
   output <- setNames(rep(0,length(samples)), samples)
+  #For each sample
   for(j in samples){
     sample.seg <- seg[seg[,1] %in% j,]
     sample.lst <- c()
     chroms <- unique(sample.seg[,2])
     chroms <- chroms[!chroms %in% c(23,24,'chr23','chr24','chrX','chrx','chrY','chry')]
+    #For each chromosome
     for(i in chroms){
       sample.chrom.seg <- sample.seg[sample.seg[,2] %in% i,,drop=F]
       if(chr.arm !='no'){
@@ -22,14 +24,16 @@ calc.lst<-function(seg, chrominfo=chrominfo,nA=7,chr.arm='no'){
       }
       if(nrow(sample.chrom.seg) < 2) {next}
       sample.chrom.seg.new <- sample.chrom.seg
+      #Select as p, all segments that start before the centromer
+      #Select as q, all segments that ends after the centromer
       if(chr.arm == 'no'){
         p.arm <- sample.chrom.seg.new[sample.chrom.seg.new[,3] <= chrominfo[i,2],,drop=F] # split into chromosome arms
         q.arm <- sample.chrom.seg.new[sample.chrom.seg.new[,4] >= chrominfo[i,3],,drop=F]
         q.arm<- shrink.seg.ai(q.arm)
-        q.arm[1,3] <- chrominfo[i,3]
+        q.arm[1,3] <- chrominfo[i,3] #Set that first q segment, start at the end of the centromer
         if(nrow(p.arm) > 0){
           p.arm<- shrink.seg.ai(p.arm)
-          p.arm[nrow(p.arm),4] <- chrominfo[i,2]
+          p.arm[nrow(p.arm),4] <- chrominfo[i,2] #Set that the last p segment ends at the begining of the centromer
         }
       }
       if(chr.arm != 'no'){
